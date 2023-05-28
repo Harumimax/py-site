@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}
+  Главная страница
+{% endblock title %}
+{% block content %}
+  <h1>История запросов</h1>
+  <hr>
+  <div>
+    <form method="POST" action="" novalidate>
+    {{ form.csrf_token }}
+      <div class="form-group">
+        <label >
+          {{ form.email.label }}
+        </label>
+        {{ form.email(class="form-control") }}
+      </div>
+      {% for error in form.email.errors %}
+        <div class="alert alert-danger" role="alert">
+          <span>{{ error }}</span>
+        </div>
+      {% endfor %}
+    {{ form.submit(class="btn btn-primary btn-lg") }}
+    </form>
+  </div>
+<br>
+
+{% if reqs == True: %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Название запроса</th>
+      <th scope="col">Размер скидки</th>
+      <th scope="col">Дата запроса</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for req in reqs %}
+    <tr>
+      <th scope="row">{{ iter }}</th>
+      <td>{{ req.name }}</td>
+      <td>{{ req.discount }}</td>
+      <td>{{ req.date }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% endblock content %}
